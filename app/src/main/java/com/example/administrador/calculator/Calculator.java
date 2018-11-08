@@ -31,7 +31,7 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
         txtResult = findViewById(R.id.txtResult);
         txtCalculation = findViewById(R.id.txtCalculation);
 
-      //  findViewById(R.id.btnEqual).setOnClickListener(Calculator.this);
+        findViewById(R.id.btnEqual).setOnClickListener(Calculator.this);
         findViewById(R.id.btn7).setOnClickListener(Calculator.this);
         findViewById(R.id.btn8).setOnClickListener(Calculator.this);
         findViewById(R.id.btn9).setOnClickListener(Calculator.this);
@@ -52,8 +52,9 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-           // case R.id.btnEqual:
-            //    break;
+            case R.id.btnEqual:
+                operatorIsTapped(OPERATOR.EQUAL);
+                break;
             case R.id.btn7:
                 numberIsTapped(7);
                 break;
@@ -94,6 +95,7 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 calculationString = calculationString + " + ";
                 break;
             case R.id.btnClear:
+                tappedClear();
                 break;
             case R.id.btn0:
                 numberIsTapped(0);
@@ -145,11 +147,25 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 stringNumberAtLeft = String.valueOf(calculationResult);
                 txtResult.setText(stringNumberAtLeft);
                 calculationString = stringNumberAtLeft;
-            }}else{
+            }
+        }else{
                 stringNumberAtLeft = currentNumber;
-                currentNumber = "";}
+                currentNumber = "";
+        }
 
         currentOperator = operatorTapped;
+    }
+
+    public void tappedClear(){
+        currentNumber="";
+        stringNumberAtLeft="";
+        stringNumberAtRight="";
+        txtCalculation.setText("0");
+        txtResult.setText("0");
+        currentOperator=null;
+        calculationResult=0;
+        calculationString="0";
+
     }
 
 }
